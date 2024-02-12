@@ -1,0 +1,5 @@
+1,	mahadi,	200
+2,	mahadis,	23
+3,	atik,	30
+4,	munccshi,	56
+
