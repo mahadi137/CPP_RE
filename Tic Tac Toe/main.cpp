@@ -18,7 +18,7 @@ void ticTacToe ()
 
     cout << "            |            |           " << endl;
     cout << "            |            |           " << endl;
-    cout << "      "<< space [0][0] << "     |      " << space [0][1] << "     |      " << space [0][3] << endl;
+    cout << "      "<< space [0][0] << "     |      " << space [0][1] << "     |      " << space [0][2] << endl;
     cout << "            |            |           " << endl;
     cout << " ___ ___ __ | ___ ___ __ | ___ ___ __" << endl;
     cout << "            |            |           " << endl;
@@ -112,7 +112,7 @@ void playersChoice ()
             break;
         
         default:
-            cout << "Invalid selection! Please select from 1 to 9, which has free space.";
+            cout << "Alart: Invalid selection! Please select from 1 to 9, which has free space." << endl;
             break;
         }
 
@@ -134,12 +134,8 @@ void playersChoice ()
 
         else 
         {
-            cout << "Choice from empty position.";
+            cout << "Alart: Choice from empty position." << endl;
         }
-
-        //((token == 'X' || token == 'O') && (space [row][col] == 'X' || space [row][col] == 'O'))
-
-        
 
 }
 
@@ -160,34 +156,41 @@ bool winnerDecide ()
         }   
     }
 
+
     // Diagonal macthing check
     if (space [0][0] == space [1][1] && space [1][1] == space [2][2] || space [0][2] == space [1][1] && space [1][1] == space [2][0])
-        {
-            GameTie = false;
-            return true;
-        }
+    {
+        GameTie = false;
+        return true;
+    }
 
-
-    // check for empty space
-    for (int i = 0; i < 3; i++)
-        {
-            for (int j = 0; j < 3; j++)
+    // if diagonal not match then check empty space
+    else if (space [0][0] != space [1][1] && space [1][1] != space [2][2] || space [0][2] != space [1][1] && space [1][1] != space [2][0])
+    {
+        // check for empty space
+        for (int i = 0; i < 3; i++)
             {
-                // Has/have empty space
-                if (space [i][j] != 'X' && space [i][j] != 'O')
+                for (int j = 0; j < 3; j++)
                 {
-                    return false;
-                }
-                
-                //if no empty space
-                else
-                {
-                    cout << "There is no empty space!";
-                    return true;
-                } 
+                    // Has empty space
+                    if (space [i][j] != 'X' || space [i][j] != 'O')
+                    
+                    {
+                        cout << "empty check" << endl;
+                        return false;
+                    }
+                    //if no empty space
+                    else
+                    {
+                        cout << "Alart: There is no empty space!" << endl;
+                        GameTie = true;
+                        return true;
+                    } 
+                }     
             }
-            
-        }
+    }
+    
+   
 
     return false;
 }
@@ -203,13 +206,9 @@ int main ()
     getline (cin, player_1);
     cout << "Enter the name of second player: ";
     getline (cin, player_2);
-    cout << endl
-            << endl;
+    cout << endl << endl;
     cout << player_1 << " will play first. " << endl << endl;
     
-    
-    
-
 
     // continue until winner is not decided
     while (!winnerDecide ())
@@ -218,24 +217,27 @@ int main ()
         ticTacToe ();
         playersChoice ();
         winnerDecide ();
-    }
-   
+        cout << winnerDecide();
         
-
-
+    }
+    
+      
     // when winner found: chek who won!!
     if (token == 'O' && GameTie == false)
     {
+        ticTacToe ();
         cout << player_1 << " won!!";
     }
 
     else if (token == 'X' && GameTie == false)
     {
+        ticTacToe ();
         cout << player_2 << " won!!";
     }
 
     else
     {
+        ticTacToe ();
         cout << "___ It's a Tie ___";
     }
     
