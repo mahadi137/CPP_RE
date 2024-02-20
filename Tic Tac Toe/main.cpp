@@ -112,7 +112,7 @@ void playersChoice ()
             break;
         
         default:
-            cout << "Alart: Invalid selection! Please select from 1 to 9, which has free space." << endl;
+            cout << "Alarm: Invalid selection! Please select from 1 to 9, which has free space." << endl;
             break;
         }
 
@@ -134,7 +134,7 @@ void playersChoice ()
 
         else 
         {
-            cout << "Alart: Choice from empty position." << endl;
+            cout << "Alarm: Choice from empty position." << endl;
         }
 
 }
@@ -144,7 +144,6 @@ void playersChoice ()
 
 bool winnerDecide ()
 {
-
 
     // Row or col by matching check
     for (int i = 0; i < 3; i++)
@@ -157,7 +156,7 @@ bool winnerDecide ()
     }
 
 
-    // Diagonal macthing check
+    // Diagonal matching check
     if (space [0][0] == space [1][1] && space [1][1] == space [2][2] || space [0][2] == space [1][1] && space [1][1] == space [2][0])
     {
         GameTie = false;
@@ -165,30 +164,26 @@ bool winnerDecide ()
     }
 
     // if diagonal not match then check empty space
-    else if (space [0][0] != space [1][1] && space [1][1] != space [2][2] || space [0][2] != space [1][1] && space [1][1] != space [2][0])
+else
+{
+    // check for empty space
+    for (int i = 0; i < 3; i++)
     {
-        // check for empty space
-        for (int i = 0; i < 3; i++)
+        for (int j = 0; j < 3; j++)
+        {
+            // Has empty space
+            if (space[i][j] != 'X' && space[i][j] != 'O')
             {
-                for (int j = 0; j < 3; j++)
-                {
-                    // Has empty space
-                    if (space [i][j] != 'X' || space [i][j] != 'O')
-                    
-                    {
-                        cout << "empty check" << endl;
-                        return false;
-                    }
-                    //if no empty space
-                    else
-                    {
-                        cout << "Alart: There is no empty space!" << endl;
-                        GameTie = true;
-                        return true;
-                    } 
-                }     
+                return false;
             }
+        }     
     }
+    
+    // No empty space found
+    cout << "Alert: There is no empty space!" << endl;
+    GameTie = true;
+    return true;
+}
     
    
 
@@ -217,27 +212,24 @@ int main ()
         ticTacToe ();
         playersChoice ();
         winnerDecide ();
-        cout << winnerDecide();
-        
+       
     }
     
-      
-    // when winner found: chek who won!!
+    ticTacToe ();
+    // when winner found: check who won!!
     if (token == 'O' && GameTie == false)
     {
-        ticTacToe ();
+        
         cout << player_1 << " won!!";
     }
 
     else if (token == 'X' && GameTie == false)
     {
-        ticTacToe ();
         cout << player_2 << " won!!";
     }
 
     else
     {
-        ticTacToe ();
         cout << "___ It's a Tie ___";
     }
     
